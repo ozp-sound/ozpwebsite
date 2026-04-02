@@ -287,33 +287,54 @@
       transform: translateY(-6px) scale(1.01);
     }
 
-    .skill-wall {
+    .skill-stream {
       margin-top: 26px;
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
       gap: 12px;
-      justify-content: center;
+    }
+
+    .skill-lane {
+      border: 1px solid rgba(44, 80, 123, 0.16);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.64);
+      overflow: hidden;
+      padding: 10px 0;
+    }
+
+    .skill-track {
+      width: max-content;
+      display: flex;
       align-items: center;
+      gap: 12px;
+      animation: skillFlowLeft 34s linear infinite;
+      padding-right: 12px;
+      will-change: transform;
+    }
+
+    .skill-lane.reverse .skill-track {
+      animation-name: skillFlowRight;
+      animation-duration: 30s;
     }
 
     .skill-tag {
       border: 1px solid rgba(44, 80, 123, 0.18);
       background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.84), rgba(234, 242, 252, 0.86));
+        linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(234, 242, 252, 0.9));
       color: #15314f;
       border-radius: 999px;
       padding: 8px 14px;
       font-size: .9rem;
       letter-spacing: .02em;
-      transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       user-select: none;
+      white-space: nowrap;
     }
 
     .skill-tag:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       border-color: rgba(40, 85, 140, 0.35);
       box-shadow:
-        0 10px 20px rgba(30, 63, 106, 0.12),
+        0 8px 16px rgba(30, 63, 106, 0.1),
         inset 0 0 0 1px rgba(88, 135, 198, 0.14);
     }
 
@@ -393,6 +414,16 @@
       to { transform: translate3d(0, 0, 0); }
     }
 
+    @keyframes skillFlowLeft {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes skillFlowRight {
+      from { transform: translate3d(-50%, 0, 0); }
+      to { transform: translate3d(0, 0, 0); }
+    }
+
     @media (max-width: 760px) {
       .track {
         gap: 28px;
@@ -417,6 +448,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       .track {
+        animation: none;
+      }
+
+      .skill-track {
         animation: none;
       }
     }
@@ -494,23 +529,61 @@
 
     <section id="skills" class="skills">
       <h2 class="section-title">Skills</h2>
-      <div class="skill-wall">
-        <span class="skill-tag">爵士鼓</span>
-        <span class="skill-tag">Dave Weckl</span>
-        <span class="skill-tag">金属</span>
-        <span class="skill-tag">Vibe Coding</span>
-        <span class="skill-tag">Openclaw</span>
-        <span class="skill-tag">编曲</span>
-        <span class="skill-tag">Vocaloid</span>
-        <span class="skill-tag">手冲咖啡</span>
-        <span class="skill-tag">拉花</span>
-        <span class="skill-tag">羽毛球</span>
-        <span class="skill-tag">初音未来</span>
-        <span class="skill-tag">洛天依</span>
-        <span class="skill-tag">剪辑</span>
-        <span class="skill-tag">AI agent</span>
-        <span class="skill-tag">乐队</span>
-        <span class="skill-tag">Frenchcore</span>
+      <div class="skill-stream">
+        <div class="skill-lane">
+          <div class="skill-track">
+            <span class="skill-tag">爵士鼓</span>
+            <span class="skill-tag">Dave Weckl</span>
+            <span class="skill-tag">金属</span>
+            <span class="skill-tag">Vibe Coding</span>
+            <span class="skill-tag">Openclaw</span>
+            <span class="skill-tag">编曲</span>
+            <span class="skill-tag">Vocaloid</span>
+            <span class="skill-tag">手冲咖啡</span>
+            <span class="skill-tag">拉花</span>
+            <span class="skill-tag">羽毛球</span>
+            <span class="skill-tag">初音未来</span>
+            <span class="skill-tag">洛天依</span>
+            <span class="skill-tag">剪辑</span>
+            <span class="skill-tag">AI agent</span>
+            <span class="skill-tag">乐队</span>
+            <span class="skill-tag">Frenchcore</span>
+            <span class="skill-tag">爵士鼓</span>
+            <span class="skill-tag">Dave Weckl</span>
+            <span class="skill-tag">金属</span>
+            <span class="skill-tag">Vibe Coding</span>
+            <span class="skill-tag">Openclaw</span>
+            <span class="skill-tag">编曲</span>
+            <span class="skill-tag">Vocaloid</span>
+            <span class="skill-tag">手冲咖啡</span>
+          </div>
+        </div>
+        <div class="skill-lane reverse">
+          <div class="skill-track">
+            <span class="skill-tag">拉花</span>
+            <span class="skill-tag">羽毛球</span>
+            <span class="skill-tag">初音未来</span>
+            <span class="skill-tag">洛天依</span>
+            <span class="skill-tag">剪辑</span>
+            <span class="skill-tag">AI agent</span>
+            <span class="skill-tag">乐队</span>
+            <span class="skill-tag">Frenchcore</span>
+            <span class="skill-tag">爵士鼓</span>
+            <span class="skill-tag">Dave Weckl</span>
+            <span class="skill-tag">金属</span>
+            <span class="skill-tag">Vibe Coding</span>
+            <span class="skill-tag">Openclaw</span>
+            <span class="skill-tag">编曲</span>
+            <span class="skill-tag">Vocaloid</span>
+            <span class="skill-tag">手冲咖啡</span>
+            <span class="skill-tag">拉花</span>
+            <span class="skill-tag">羽毛球</span>
+            <span class="skill-tag">初音未来</span>
+            <span class="skill-tag">洛天依</span>
+            <span class="skill-tag">剪辑</span>
+            <span class="skill-tag">AI agent</span>
+          </div>
+        </div>
       </div>
     </section>
 

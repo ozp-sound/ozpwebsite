@@ -287,55 +287,56 @@
       transform: translateY(-6px) scale(1.01);
     }
 
-    .skill-stream {
-      margin-top: 26px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .skill-lane {
-      border: 1px solid rgba(44, 80, 123, 0.16);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.64);
+    .skills-bg {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid rgba(44, 80, 123, 0.12);
+      border-radius: 20px;
       overflow: hidden;
-      padding: 10px 0;
-    }
-
-    .skill-track {
-      width: max-content;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      animation: skillFlowLeft 34s linear infinite;
-      padding-right: 12px;
-      will-change: transform;
-    }
-
-    .skill-lane.reverse .skill-track {
-      animation-name: skillFlowRight;
-      animation-duration: 30s;
-    }
-
-    .skill-tag {
-      border: 1px solid rgba(44, 80, 123, 0.18);
       background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(234, 242, 252, 0.9));
-      color: #15314f;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: .9rem;
-      letter-spacing: .02em;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      user-select: none;
-      white-space: nowrap;
+        radial-gradient(circle at 20% 20%, rgba(142, 170, 212, 0.16), transparent 40%),
+        radial-gradient(circle at 78% 70%, rgba(147, 168, 206, 0.14), transparent 45%),
+        linear-gradient(160deg, rgba(248, 252, 255, 0.9), rgba(235, 244, 252, 0.82));
     }
 
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      border-color: rgba(40, 85, 140, 0.35);
-      box-shadow:
-        0 8px 16px rgba(30, 63, 106, 0.1),
-        inset 0 0 0 1px rgba(88, 135, 198, 0.14);
+    .skills-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(52, 82, 124, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(52, 82, 124, 0.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,0.8) 22%, rgba(0,0,0,0.35) 64%, transparent 88%);
+      pointer-events: none;
+    }
+
+    .skills-danmu {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+
+    .skills-track {
+      position: absolute;
+      width: 220%;
+      left: -60%;
+      display: flex;
+      gap: 42px;
+      white-space: nowrap;
+      will-change: transform;
+      animation-name: flowLeft;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      color: rgba(70, 95, 130, 0.32);
+      font-size: clamp(0.88rem, 1.7vw, 1.35rem);
+      letter-spacing: 0.08em;
+      user-select: none;
+    }
+
+    .skills-track.reverse {
+      animation-name: flowRight;
     }
 
     .card-grid {
@@ -414,16 +415,6 @@
       to { transform: translate3d(0, 0, 0); }
     }
 
-    @keyframes skillFlowLeft {
-      from { transform: translate3d(0, 0, 0); }
-      to { transform: translate3d(-50%, 0, 0); }
-    }
-
-    @keyframes skillFlowRight {
-      from { transform: translate3d(-50%, 0, 0); }
-      to { transform: translate3d(0, 0, 0); }
-    }
-
     @media (max-width: 760px) {
       .track {
         gap: 28px;
@@ -451,7 +442,7 @@
         animation: none;
       }
 
-      .skill-track {
+      .skills-track {
         animation: none;
       }
     }
@@ -528,62 +519,9 @@
     </section>
 
     <section id="skills" class="skills">
-      <h2 class="section-title">Skills</h2>
-      <div class="skill-stream">
-        <div class="skill-lane">
-          <div class="skill-track">
-            <span class="skill-tag">爵士鼓</span>
-            <span class="skill-tag">Dave Weckl</span>
-            <span class="skill-tag">金属</span>
-            <span class="skill-tag">Vibe Coding</span>
-            <span class="skill-tag">Openclaw</span>
-            <span class="skill-tag">编曲</span>
-            <span class="skill-tag">Vocaloid</span>
-            <span class="skill-tag">手冲咖啡</span>
-            <span class="skill-tag">拉花</span>
-            <span class="skill-tag">羽毛球</span>
-            <span class="skill-tag">初音未来</span>
-            <span class="skill-tag">洛天依</span>
-            <span class="skill-tag">剪辑</span>
-            <span class="skill-tag">AI agent</span>
-            <span class="skill-tag">乐队</span>
-            <span class="skill-tag">Frenchcore</span>
-            <span class="skill-tag">爵士鼓</span>
-            <span class="skill-tag">Dave Weckl</span>
-            <span class="skill-tag">金属</span>
-            <span class="skill-tag">Vibe Coding</span>
-            <span class="skill-tag">Openclaw</span>
-            <span class="skill-tag">编曲</span>
-            <span class="skill-tag">Vocaloid</span>
-            <span class="skill-tag">手冲咖啡</span>
-          </div>
-        </div>
-        <div class="skill-lane reverse">
-          <div class="skill-track">
-            <span class="skill-tag">拉花</span>
-            <span class="skill-tag">羽毛球</span>
-            <span class="skill-tag">初音未来</span>
-            <span class="skill-tag">洛天依</span>
-            <span class="skill-tag">剪辑</span>
-            <span class="skill-tag">AI agent</span>
-            <span class="skill-tag">乐队</span>
-            <span class="skill-tag">Frenchcore</span>
-            <span class="skill-tag">爵士鼓</span>
-            <span class="skill-tag">Dave Weckl</span>
-            <span class="skill-tag">金属</span>
-            <span class="skill-tag">Vibe Coding</span>
-            <span class="skill-tag">Openclaw</span>
-            <span class="skill-tag">编曲</span>
-            <span class="skill-tag">Vocaloid</span>
-            <span class="skill-tag">手冲咖啡</span>
-            <span class="skill-tag">拉花</span>
-            <span class="skill-tag">羽毛球</span>
-            <span class="skill-tag">初音未来</span>
-            <span class="skill-tag">洛天依</span>
-            <span class="skill-tag">剪辑</span>
-            <span class="skill-tag">AI agent</span>
-          </div>
-        </div>
+      <div class="skills-bg">
+        <div class="skills-grid-overlay" aria-hidden="true"></div>
+        <div class="skills-danmu" id="skillsDanmuLayer" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -610,6 +548,8 @@
   <script>
     const words = ["九时", "九时", "酒石", "kuji", "ozp"];
     const layer = document.getElementById("danmuLayer");
+    const skillWords = ["爵士鼓", "Dave Weckl", "金属", "Vibe Coding", "Openclaw", "编曲", "Vocaloid", "手冲咖啡", "拉花", "羽毛球", "初音未来", "洛天依", "剪辑", "AI agent", "乐队", "Frenchcore"];
+    const skillsLayer = document.getElementById("skillsDanmuLayer");
 
     const trackCount = 10;
     for (let i = 0; i < trackCount; i++) {
@@ -630,6 +570,29 @@
       }
       track.innerHTML = line.join("");
       layer.appendChild(track);
+    }
+
+    if (skillsLayer) {
+      const skillsTrackCount = 8;
+      for (let i = 0; i < skillsTrackCount; i++) {
+        const track = document.createElement("div");
+        track.className = `skills-track ${i % 2 === 0 ? "" : "reverse"}`;
+
+        const y = 8 + i * 11.5;
+        track.style.top = `${y}%`;
+
+        const duration = 36 + (i % 4) * 6;
+        track.style.animationDuration = `${duration}s`;
+        track.style.animationDelay = `${-i * 2.6}s`;
+        track.style.opacity = `${0.35 + (i % 3) * 0.1}`;
+
+        const line = [];
+        for (let n = 0; n < 26; n++) {
+          line.push(`<span>${skillWords[(n + i) % skillWords.length]}</span>`);
+        }
+        track.innerHTML = line.join("");
+        skillsLayer.appendChild(track);
+      }
     }
   </script>
 </body>

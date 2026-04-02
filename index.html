@@ -1,0 +1,572 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ozpwebsite</title>
+  <meta name="description" content="ozpwebsite portfolio" />
+  <style>
+    :root {
+      --bg: #f4f8fc;
+      --bg-soft: #e9f0f8;
+      --text: #102033;
+      --muted: #5f7086;
+      --line: rgba(28, 53, 87, 0.1);
+      --chip: rgba(255, 255, 255, 0.66);
+      --danmu: rgba(83, 110, 143, 0.16);
+      --accent: #17365c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: "Space Grotesk", "Noto Sans SC", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 14%, rgba(133, 165, 210, 0.17), transparent 42%),
+        radial-gradient(circle at 82% 22%, rgba(169, 190, 224, 0.16), transparent 44%),
+        linear-gradient(158deg, #f7fbff 0%, var(--bg) 48%, var(--bg-soft) 100%);
+      overflow-x: hidden;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image: radial-gradient(rgba(20, 30, 50, 0.08) 0.4px, transparent 0.4px);
+      background-size: 3px 3px;
+      z-index: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 250, 255, 0.74);
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: var(--chip);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      transition: all .2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      border-color: rgba(15, 23, 42, 0.16);
+      transform: translateY(-1px);
+    }
+
+    section {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .hero-wrap {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .hero {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      padding-top: 48px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 11vw, 8.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      color: #10233b;
+      text-shadow:
+        0 0 0 rgba(255,255,255,0.2),
+        0 18px 45px rgba(58, 83, 126, 0.16);
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(52, 82, 124, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(52, 82, 124, 0.08) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at center, black 32%, rgba(0,0,0,0.4) 60%, transparent 86%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .danmu-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+      mix-blend-mode: multiply;
+    }
+
+    .track {
+      position: absolute;
+      width: 220%;
+      left: -60%;
+      white-space: nowrap;
+      display: flex;
+      gap: 52px;
+      will-change: transform;
+      animation-name: flowLeft;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      font-size: clamp(0.9rem, 2vw, 1.65rem);
+      letter-spacing: 0.12em;
+      color: var(--danmu);
+      user-select: none;
+    }
+
+    .track.reverse {
+      animation-name: flowRight;
+    }
+
+    .track span {
+      opacity: .82;
+      text-shadow: 0 0 16px rgba(118, 141, 178, 0.16);
+    }
+
+    .projects,
+    .skills,
+    .contact {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4.2vw, 3rem);
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      margin: 0;
+      max-width: 650px;
+      line-height: 1.8;
+    }
+
+    .project-grid {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .project-grid:hover .project-card:not(:hover):not(:focus-visible) {
+      opacity: 0.56;
+      transform: translateY(0) scale(0.985);
+      filter: saturate(0.88);
+    }
+
+    .project-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      overflow: hidden;
+      backdrop-filter: blur(6px);
+      min-height: 270px;
+      transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease, opacity .3s ease, filter .3s ease;
+    }
+
+    .project-card:hover,
+    .project-card:focus-visible {
+      transform: translateY(-10px) scale(1.023);
+      border-color: rgba(34, 85, 150, 0.32);
+      box-shadow:
+        0 26px 42px rgba(26, 51, 90, 0.17),
+        0 0 0 1px rgba(63, 120, 191, 0.12);
+      outline: none;
+    }
+
+    .project-cover {
+      height: 168px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(31, 56, 90, 0.12);
+      background: linear-gradient(140deg, #dde7f6, #f8fbff);
+    }
+
+    .project-body {
+      padding: 14px 14px 16px;
+    }
+
+    .project-meta {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #60758f;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .project-title {
+      margin: 0 0 8px;
+      font-size: 1.07rem;
+      letter-spacing: 0.01em;
+      color: #122943;
+    }
+
+    .project-desc {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.66;
+      font-size: .9rem;
+    }
+
+    .project-placeholder {
+      height: 168px;
+      border-bottom: 1px solid rgba(31, 56, 90, 0.12);
+      display: grid;
+      place-items: center;
+      color: #5e7692;
+      letter-spacing: 0.1em;
+      font-size: .78rem;
+      text-transform: uppercase;
+      background:
+        linear-gradient(130deg, rgba(176, 198, 230, 0.6), rgba(244, 249, 255, 0.95)),
+        repeating-linear-gradient(-45deg, rgba(72, 103, 147, 0.08), rgba(72, 103, 147, 0.08) 11px, rgba(244, 249, 255, 0.35) 11px, rgba(244, 249, 255, 0.35) 22px);
+    }
+
+    .coming-soon {
+      border-style: dashed;
+      cursor: default;
+    }
+
+    .coming-soon:hover {
+      transform: translateY(-6px) scale(1.01);
+    }
+
+    .skills-note {
+      margin-top: 10px;
+      color: #6a7e98;
+      font-size: .9rem;
+      letter-spacing: .03em;
+    }
+
+    .skill-wall {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .skill-tag {
+      border: 1px solid rgba(44, 80, 123, 0.18);
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.84), rgba(234, 242, 252, 0.86));
+      color: #15314f;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: .9rem;
+      letter-spacing: .02em;
+      transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+      user-select: none;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-3px);
+      border-color: rgba(40, 85, 140, 0.35);
+      box-shadow:
+        0 10px 20px rgba(30, 63, 106, 0.12),
+        inset 0 0 0 1px rgba(88, 135, 198, 0.14);
+    }
+
+    .card-grid {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+      padding: 18px;
+      backdrop-filter: blur(6px);
+      min-height: 130px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: .02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .92rem;
+    }
+
+    footer {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+      padding: 16px 0 30px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-top: 1px solid var(--line);
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes flowLeft {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes flowRight {
+      from { transform: translate3d(-50%, 0, 0); }
+      to { transform: translate3d(0, 0, 0); }
+    }
+
+    @media (max-width: 760px) {
+      header {
+        padding: 14px;
+      }
+
+      nav {
+        gap: 7px;
+      }
+
+      nav a {
+        padding: 6px 10px;
+      }
+
+      .track {
+        gap: 28px;
+      }
+
+      .projects,
+      .skills,
+      .contact {
+        padding: 76px 0;
+      }
+
+      .project-grid:hover .project-card:not(:hover):not(:focus-visible) {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .project-card:active {
+        transform: translateY(-4px) scale(1.01);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .track {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header>
+    <div class="logo">ozpwebsite</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#projects">Works</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero-wrap">
+      <div class="grid-overlay" aria-hidden="true"></div>
+      <div class="danmu-layer" id="danmuLayer" aria-hidden="true"></div>
+
+      <div class="hero">
+        <h1>ozpwebsite</h1>
+        <p>minimal · future · personal portfolio</p>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2 class="section-title">Works</h2>
+      <p class="section-note">音乐作品、软件项目与内容创作的卡牌展示。悬停卡片会弹出聚焦，点击可直达对应链接。</p>
+      <div class="project-grid">
+        <a class="project-card" href="https://www.bilibili.com/video/BV1VgYqeqEC5/" target="_blank" rel="noopener noreferrer">
+          <img class="project-cover" src="./pv.png" alt="Vocaloid 歌曲 未来怪力 封面" loading="lazy" decoding="async" />
+          <div class="project-body">
+            <div class="project-meta">Vocaloid Song</div>
+            <h3 class="project-title">未来怪力</h3>
+            <p class="project-desc">Vocaloid 原创歌曲，点击前往 Bilibili 观看完整 PV。</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://www.bilibili.com/video/BV1hTAgzuEmP/" target="_blank" rel="noopener noreferrer">
+          <img class="project-cover" src="./ScreenShot_2026-04-02_190955_481.png" alt="Vocaloid 歌曲 我成为 封面" loading="lazy" decoding="async" />
+          <div class="project-body">
+            <div class="project-meta">Vocaloid Song</div>
+            <h3 class="project-title">我成为</h3>
+            <p class="project-desc">Vocaloid 原创歌曲，视觉情绪化风格，点击可查看作品视频。</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://www.bilibili.com/video/BV1SwPsepEeq/" target="_blank" rel="noopener noreferrer">
+          <img class="project-cover" src="./ScreenShot_2026-04-02_191303_344.png" alt="Frenchcore 歌曲 FURY 封面" loading="lazy" decoding="async" />
+          <div class="project-body">
+            <div class="project-meta">Frenchcore</div>
+            <h3 class="project-title">FURY</h3>
+            <p class="project-desc">Frenchcore 风格音乐项目，点击前往 Bilibili 播放页面。</p>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://www.bilibili.com/video/BV1JSe2zNEw2/" target="_blank" rel="noopener noreferrer">
+          <img class="project-cover" src="./ScreenShot_2026-04-02_191303_344.png" alt="歌曲 文学 封面" loading="lazy" decoding="async" />
+          <div class="project-body">
+            <div class="project-meta">Song</div>
+            <h3 class="project-title">文学</h3>
+            <p class="project-desc">歌曲作品《文学》，点击进入 Bilibili 查看完整内容。</p>
+          </div>
+        </a>
+
+        <article class="project-card coming-soon">
+          <img class="project-cover" src="./22313.png" alt="软件 校园邦 封面" loading="lazy" decoding="async" />
+          <div class="project-body">
+            <div class="project-meta">Software</div>
+            <h3 class="project-title">校园邦</h3>
+            <p class="project-desc">软件项目，链接后续补充。当前作为即将上线作品展示。</p>
+          </div>
+        </article>
+
+        <article class="project-card coming-soon">
+          <div class="project-placeholder">No Cover Yet</div>
+          <div class="project-body">
+            <div class="project-meta">WeChat Official Account</div>
+            <h3 class="project-title">读旧诗</h3>
+            <p class="project-desc">公众号项目，封面与跳转链接可在后续添加。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="skills">
+      <h2 class="section-title">Skills</h2>
+      <p class="section-note">标签式技能展示墙，会持续扩展。</p>
+      <p class="skills-note">Music · Creative · Tech</p>
+      <div class="skill-wall">
+        <span class="skill-tag">爵士鼓</span>
+        <span class="skill-tag">Dave Weckl</span>
+        <span class="skill-tag">金属</span>
+        <span class="skill-tag">Vibe Coding</span>
+        <span class="skill-tag">Openclaw</span>
+        <span class="skill-tag">编曲</span>
+        <span class="skill-tag">Vocaloid</span>
+        <span class="skill-tag">手冲咖啡</span>
+        <span class="skill-tag">拉花</span>
+        <span class="skill-tag">羽毛球</span>
+        <span class="skill-tag">初音未来</span>
+        <span class="skill-tag">洛天依</span>
+        <span class="skill-tag">剪辑</span>
+        <span class="skill-tag">AI agent</span>
+        <span class="skill-tag">乐队</span>
+        <span class="skill-tag">Frenchcore</span>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-note">联系方式区域：可放邮箱、社媒、微信、简历下载，以及轻量联系表单。</p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Email</h3>
+          <p>yourname@email.com</p>
+        </article>
+        <article class="card">
+          <h3>Social</h3>
+          <p>Github / X / LinkedIn</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>ozpwebsite · portfolio</footer>
+
+  <script>
+    const words = ["九时", "九时", "酒石", "kuji", "ozp"];
+    const layer = document.getElementById("danmuLayer");
+
+    const trackCount = 10;
+    for (let i = 0; i < trackCount; i++) {
+      const track = document.createElement("div");
+      track.className = `track ${i % 2 === 0 ? "" : "reverse"}`;
+
+      const y = 6 + i * 8;
+      track.style.top = `${y}%`;
+
+      const duration = 32 + (i % 4) * 7;
+      track.style.animationDuration = `${duration}s`;
+      track.style.animationDelay = `${-i * 2.9}s`;
+      track.style.opacity = `${0.32 + (i % 4) * 0.1}`;
+
+      const line = [];
+      for (let n = 0; n < 34; n++) {
+        line.push(`<span>${words[(n + i) % words.length]}</span>`);
+      }
+      track.innerHTML = line.join("");
+      layer.appendChild(track);
+    }
+  </script>
+</body>
+</html>

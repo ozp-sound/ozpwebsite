@@ -35,16 +35,6 @@
       overflow-x: hidden;
     }
 
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.16;
-      background-image: radial-gradient(rgba(20, 30, 50, 0.08) 0.4px, transparent 0.4px);
-      background-size: 3px 3px;
-      z-index: 0;
-    }
-
     section {
       position: relative;
       z-index: 2;
@@ -82,10 +72,10 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(to right, rgba(52, 82, 124, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(52, 82, 124, 0.08) 1px, transparent 1px);
+        linear-gradient(to right, rgba(52, 82, 124, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(52, 82, 124, 0.05) 1px, transparent 1px);
       background-size: 72px 72px;
-      mask-image: radial-gradient(circle at center, black 32%, rgba(0,0,0,0.4) 60%, transparent 86%);
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,0.76) 28%, rgba(0,0,0,0.28) 62%, transparent 88%);
       z-index: 1;
       pointer-events: none;
     }
@@ -133,16 +123,25 @@
 
     .section-title {
       font-size: clamp(1.8rem, 4.2vw, 3rem);
-      margin: 0 0 14px;
+      margin: 0 0 20px;
       letter-spacing: -0.02em;
       text-align: center;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 68px;
+      height: 2px;
+      margin: 12px auto 0;
+      background: linear-gradient(90deg, rgba(72, 110, 162, 0), rgba(72, 110, 162, 0.45), rgba(72, 110, 162, 0));
     }
 
     .project-grid {
       margin-top: 34px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
     }
 
     .project-grid:hover .project-card:not(:hover):not(:focus-visible) {
@@ -161,7 +160,21 @@
       overflow: hidden;
       backdrop-filter: blur(6px);
       min-height: 270px;
+      position: relative;
+      isolation: isolate;
       transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease, opacity .3s ease, filter .3s ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: -30% -15% auto;
+      height: 65%;
+      background: radial-gradient(circle, rgba(104, 144, 205, 0.22), rgba(104, 144, 205, 0));
+      opacity: 0;
+      transition: opacity .35s ease;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .project-card:hover,
@@ -174,6 +187,11 @@
       outline: none;
     }
 
+    .project-card:hover::before,
+    .project-card:focus-visible::before {
+      opacity: 1;
+    }
+
     .project-cover {
       height: 168px;
       width: 100%;
@@ -181,10 +199,25 @@
       display: block;
       border-bottom: 1px solid rgba(31, 56, 90, 0.12);
       background: linear-gradient(140deg, #dde7f6, #f8fbff);
+      filter: saturate(0.88) contrast(1.04);
+      transform: scale(1.01);
+      transition: transform .42s ease, filter .42s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card:hover .project-cover,
+    .project-card:focus-visible .project-cover {
+      filter: saturate(1.08) contrast(1.06);
+      transform: scale(1.06);
     }
 
     .project-body {
       padding: 14px 14px 16px;
+      display: grid;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
     }
 
     .project-meta {
@@ -192,7 +225,8 @@
       letter-spacing: 0.08em;
       color: #60758f;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 0;
+      text-align: center;
     }
 
     .project-title {
@@ -208,6 +242,26 @@
       color: var(--muted);
       line-height: 1.66;
       font-size: .9rem;
+      text-align: left;
+    }
+
+    .project-card:nth-child(1) .project-meta,
+    .project-card:nth-child(2) .project-meta {
+      color: #4c6f94;
+    }
+
+    .project-card:nth-child(3) .project-meta {
+      color: #436085;
+    }
+
+    .project-card:nth-child(4) .project-meta {
+      color: #5a638b;
+    }
+
+    .project-card:nth-child(5),
+    .project-card:nth-child(6) {
+      background:
+        linear-gradient(170deg, rgba(255,255,255,0.8), rgba(235,243,252,0.7));
     }
 
     .project-placeholder {
@@ -238,7 +292,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
     }
 
     .skill-tag {
@@ -290,6 +345,7 @@
       color: var(--muted);
       line-height: 1.7;
       font-size: .92rem;
+      text-align: center;
     }
 
     .social-links {
@@ -301,11 +357,17 @@
     .social-links a {
       color: #1b3c60;
       text-decoration: none;
-      word-break: break-all;
+      word-break: break-word;
     }
 
     .social-links a:hover {
       text-decoration: underline;
+    }
+
+    .social-links a:focus-visible,
+    .project-card:focus-visible {
+      outline: 2px solid rgba(44, 97, 168, 0.52);
+      outline-offset: 3px;
     }
 
     footer {
@@ -361,8 +423,6 @@
   </style>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-
   <main>
     <section id="home" class="hero-wrap">
       <div class="grid-overlay" aria-hidden="true"></div>
@@ -379,7 +439,7 @@
         <a class="project-card" href="https://www.bilibili.com/video/BV1VgYqeqEC5/" target="_blank" rel="noopener noreferrer">
           <img class="project-cover" src="./pv.png" alt="Vocaloid 歌曲 未来怪力 封面" loading="lazy" decoding="async" />
           <div class="project-body">
-            <div class="project-meta">Vocaloid Song</div>
+            <div class="project-meta">歌曲</div>
             <h3 class="project-title">未来怪力</h3>
             <p class="project-desc">Vocaloid 原创歌曲，点击前往 Bilibili 观看完整 PV。</p>
           </div>
@@ -388,7 +448,7 @@
         <a class="project-card" href="https://www.bilibili.com/video/BV1hTAgzuEmP/" target="_blank" rel="noopener noreferrer">
           <img class="project-cover" src="./ScreenShot_2026-04-02_190955_481.png" alt="Vocaloid 歌曲 我成为 封面" loading="lazy" decoding="async" />
           <div class="project-body">
-            <div class="project-meta">Vocaloid Song</div>
+            <div class="project-meta">歌曲</div>
             <h3 class="project-title">我成为</h3>
             <p class="project-desc">Vocaloid 原创歌曲，视觉情绪化风格，点击可查看作品视频。</p>
           </div>
@@ -397,16 +457,16 @@
         <a class="project-card" href="https://www.bilibili.com/video/BV1SwPsepEeq/" target="_blank" rel="noopener noreferrer">
           <img class="project-cover" src="./ScreenShot_2026-04-02_191303_344.png" alt="Frenchcore 歌曲 FURY 封面" loading="lazy" decoding="async" />
           <div class="project-body">
-            <div class="project-meta">Frenchcore</div>
+            <div class="project-meta">歌曲</div>
             <h3 class="project-title">FURY</h3>
             <p class="project-desc">Frenchcore 风格音乐项目，点击前往 Bilibili 播放页面。</p>
           </div>
         </a>
 
         <a class="project-card" href="https://www.bilibili.com/video/BV1JSe2zNEw2/" target="_blank" rel="noopener noreferrer">
-          <img class="project-cover" src="./ScreenShot_2026-04-02_191303_344.png" alt="歌曲 文学 封面" loading="lazy" decoding="async" />
+          <img class="project-cover" src="./ScreenShot_2026-04-02_191425_541.png" alt="歌曲 文学 封面" loading="lazy" decoding="async" />
           <div class="project-body">
-            <div class="project-meta">Song</div>
+            <div class="project-meta">歌曲</div>
             <h3 class="project-title">文学</h3>
             <p class="project-desc">歌曲作品《文学》，点击进入 Bilibili 查看完整内容。</p>
           </div>
@@ -415,7 +475,7 @@
         <article class="project-card coming-soon">
           <img class="project-cover" src="./22313.png" alt="软件 校园邦 封面" loading="lazy" decoding="async" />
           <div class="project-body">
-            <div class="project-meta">Software</div>
+            <div class="project-meta">软件</div>
             <h3 class="project-title">校园邦</h3>
             <p class="project-desc">软件项目，链接后续补充。当前作为即将上线作品展示。</p>
           </div>
@@ -424,7 +484,7 @@
         <article class="project-card coming-soon">
           <div class="project-placeholder">No Cover Yet</div>
           <div class="project-body">
-            <div class="project-meta">WeChat Official Account</div>
+            <div class="project-meta">软件</div>
             <h3 class="project-title">读旧诗</h3>
             <p class="project-desc">公众号项目，封面与跳转链接可在后续添加。</p>
           </div>
@@ -459,12 +519,12 @@
       <div class="card-grid">
         <article class="card">
           <h3>Email</h3>
-          <p>yourname@email.com</p>
+          <p>暂不公开</p>
         </article>
         <article class="card">
           <h3>Social</h3>
           <p class="social-links">
-            <a href="https://space.bilibili.com/499606214" target="_blank" rel="noopener noreferrer">Bilibili: https://space.bilibili.com/499606214</a>
+            <a href="https://space.bilibili.com/499606214" target="_blank" rel="noopener noreferrer">B站: https://space.bilibili.com/499606214</a>
             <a href="https://x.com/Ozp_sound" target="_blank" rel="noopener noreferrer">X: https://x.com/Ozp_sound</a>
           </p>
         </article>

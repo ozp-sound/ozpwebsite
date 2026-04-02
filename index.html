@@ -72,6 +72,7 @@
       line-height: 0.92;
       letter-spacing: -0.04em;
       color: #10233b;
+      text-align: center;
       text-shadow:
         0 0 0 rgba(255,255,255,0.2),
         0 18px 45px rgba(58, 83, 126, 0.16);
@@ -134,13 +135,7 @@
       font-size: clamp(1.8rem, 4.2vw, 3rem);
       margin: 0 0 14px;
       letter-spacing: -0.02em;
-    }
-
-    .section-note {
-      color: var(--muted);
-      margin: 0;
-      max-width: 650px;
-      line-height: 1.8;
+      text-align: center;
     }
 
     .project-grid {
@@ -205,6 +200,7 @@
       font-size: 1.07rem;
       letter-spacing: 0.01em;
       color: #122943;
+      text-align: center;
     }
 
     .project-desc {
@@ -235,13 +231,6 @@
 
     .coming-soon:hover {
       transform: translateY(-6px) scale(1.01);
-    }
-
-    .skills-note {
-      margin-top: 10px;
-      color: #6a7e98;
-      font-size: .9rem;
-      letter-spacing: .03em;
     }
 
     .skill-wall {
@@ -293,6 +282,7 @@
       margin: 0 0 8px;
       font-size: 1rem;
       letter-spacing: .02em;
+      text-align: center;
     }
 
     .card p {
@@ -300,6 +290,22 @@
       color: var(--muted);
       line-height: 1.7;
       font-size: .92rem;
+    }
+
+    .social-links {
+      display: grid;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .social-links a {
+      color: #1b3c60;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .social-links a:hover {
+      text-decoration: underline;
     }
 
     footer {
@@ -369,7 +375,6 @@
 
     <section id="projects" class="projects">
       <h2 class="section-title">Works</h2>
-      <p class="section-note">音乐作品、软件项目与内容创作的卡牌展示。悬停卡片会弹出聚焦，点击可直达对应链接。</p>
       <div class="project-grid">
         <a class="project-card" href="https://www.bilibili.com/video/BV1VgYqeqEC5/" target="_blank" rel="noopener noreferrer">
           <img class="project-cover" src="./pv.png" alt="Vocaloid 歌曲 未来怪力 封面" loading="lazy" decoding="async" />
@@ -429,8 +434,6 @@
 
     <section id="skills" class="skills">
       <h2 class="section-title">Skills</h2>
-      <p class="section-note">标签式技能展示墙，会持续扩展。</p>
-      <p class="skills-note">Music · Creative · Tech</p>
       <div class="skill-wall">
         <span class="skill-tag">爵士鼓</span>
         <span class="skill-tag">Dave Weckl</span>
@@ -453,7 +456,6 @@
 
     <section id="contact" class="contact">
       <h2 class="section-title">Contact</h2>
-      <p class="section-note">联系方式区域：可放邮箱、社媒、微信、简历下载，以及轻量联系表单。</p>
       <div class="card-grid">
         <article class="card">
           <h3>Email</h3>
@@ -461,7 +463,10 @@
         </article>
         <article class="card">
           <h3>Social</h3>
-          <p>Github / X / LinkedIn</p>
+          <p class="social-links">
+            <a href="https://space.bilibili.com/499606214" target="_blank" rel="noopener noreferrer">Bilibili: https://space.bilibili.com/499606214</a>
+            <a href="https://x.com/Ozp_sound" target="_blank" rel="noopener noreferrer">X: https://x.com/Ozp_sound</a>
+          </p>
         </article>
       </div>
     </section>
